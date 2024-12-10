@@ -15,7 +15,7 @@ import java.util.*;
 public class ExcelUtils {
 
     /**
-     * @param columns list of cell on the same row. It should be header of data table in excel
+     * @param columns     list of cell on the same row. It should be header of data table in excel
      * @param escapeValue value on the row which is break the loop when reach it
      */
     public static List<Map<String, String>> getDataTest(String filePath, String sheetName, List<String> columns, String escapeValue) {
@@ -34,7 +34,8 @@ public class ExcelUtils {
                     for (int j = 1; j < (numberOfTestData - i); j++) {
                         element = new HashMap<>();
                         rowData = sheet.getRow(i + j);
-                        if (getDataFromCell(rowData.getCell(0)).equalsIgnoreCase(escapeValue) || escapeValue == null) return dataEntryList;
+                        if (getDataFromCell(rowData.getCell(0)).equalsIgnoreCase(escapeValue) || escapeValue == null)
+                            return dataEntryList;
                         for (int k = 0; k < columns.size(); k++) {
                             int indexExpectedCol = findColumnByName(rowHeader, columns.get(k));
                             String paramsValue = getDataFromCell(rowData.getCell(indexExpectedCol));
@@ -64,8 +65,8 @@ public class ExcelUtils {
             ZipSecureFile.setMinInflateRatio(0);
             XSSFWorkbook workbook = new XSSFWorkbook(input);
             XSSFSheet sheet = workbook.getSheet(sheetName);
-            Row row = sheet.getRow(rowIndex-1);
-            cellValue = getDataFromCell(row.getCell(colIndex-1));
+            Row row = sheet.getRow(rowIndex - 1);
+            cellValue = getDataFromCell(row.getCell(colIndex - 1));
             if (workbook != null) workbook.close();
         } catch (Exception e) {
             throw new RuntimeException("ERROR: Can't read excel file: " + filePath + e.getMessage());
@@ -78,15 +79,16 @@ public class ExcelUtils {
         return cellValue;
     }
 
-    private static List<String> getRowData(Row row){
+    private static List<String> getRowData(Row row) {
         List<String> cellValue = new ArrayList<>();
         Iterator<Cell> cell = row.cellIterator();
-        while (cell.hasNext()){
+        while (cell.hasNext()) {
             Cell value = cell.next();
             cellValue.add(getDataFromCell(value));
         }
         return cellValue;
     }
+
     private static String getDataFromCell(Cell cell) {
         String result = "";
         try {
@@ -128,3 +130,4 @@ public class ExcelUtils {
         }
         return result;
     }
+}
