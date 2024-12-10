@@ -3,9 +3,9 @@ package element.common;
 import org.openqa.selenium.By;
 import element.BaseElement;
 
-public abstract class ATable extends BaseElement {
+public abstract class Table extends BaseElement {
 
-	public ATable(By locator) {
+	public Table(By locator) {
 		super(locator);
 	}
 
