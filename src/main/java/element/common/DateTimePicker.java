@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 
 import element.BaseElement;
 
-public abstract class ADateTimePicker extends BaseElement {
+public abstract class DateTimePicker extends BaseElement {
 
-	public ADateTimePicker(By locator) {
+	public DateTimePicker(By locator) {
 		super(locator);
 	}
 

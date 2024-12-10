@@ -42,9 +42,7 @@ public class BaseCaseTest {
     @Parameters({"browser", "appname"})
     @BeforeClass(alwaysRun = true)
     public void beforeClass(String browser, String appname) {
-//        environment = (Environment) context.getBean(env);
         driverProperties = (DriverProperties) context.getBean(browser);
-        //   System.out.println(String.format("RUNNING ON %s under the link %s", env.toUpperCase(), environment.getAqsLoginURL()));
         urlOriginal = defineUrl(appname);
     }
 
