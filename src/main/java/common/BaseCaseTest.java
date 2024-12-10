@@ -11,10 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import utils.ScreenShotUtils;
 
 import java.io.IOException;
@@ -30,6 +27,7 @@ public class BaseCaseTest {
     public static BrowserMobProxy browserMobProxy;
     public static ExtentReports report;
     private static ApplicationContext context;
+    public static String urlOriginal;
 
     @BeforeSuite(alwaysRun = true)
     public static void beforeSuite() {
@@ -41,6 +39,15 @@ public class BaseCaseTest {
         }
     }
 
+    @Parameters({"browser", "appname"})
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass(String browser, String appname) {
+//        environment = (Environment) context.getBean(env);
+        driverProperties = (DriverProperties) context.getBean(browser);
+        //   System.out.println(String.format("RUNNING ON %s under the link %s", env.toUpperCase(), environment.getAqsLoginURL()));
+        urlOriginal = defineUrl(appname);
+    }
+
     @Parameters({"appname", "isProxy"})
     @BeforeMethod(alwaysRun = true)
     public static void beforeMethod(String appname, boolean isProxy, Method method) {
@@ -49,7 +56,7 @@ public class BaseCaseTest {
         driverProperties.setMethodName(method.getName());
         driverProperties.setIsProxy(isProxy);
         try {
-            createDriver(defineUrl(appname));
+            createDriver(urlOriginal);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (UnexpectedException e) {
@@ -97,7 +104,6 @@ public class BaseCaseTest {
         }
     }
 
-
     public static String defineUrl(String appname) {
         return Contants.URL_FOLLOW_APP_NAME.get(appname);
     }
@@ -108,4 +114,9 @@ public class BaseCaseTest {
         Reporter.log(message);
         return message;
     }
+
+    public static String getDownloadPath() {
+        return DriverManager.getDriver().getDriverSetting().getDownloadPath();
+    }
+
 }
