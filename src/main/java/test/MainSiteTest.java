@@ -15,4 +15,12 @@ public class MainSiteTest extends BaseCaseTest {
         log("Verify 1: Validate redirect to game site");
         landingPage.homePage.verifyRedirected();
     }
+
+    @Test(groups = {"smoke1"})
+    public void MainSiteTest_002() {
+        log("@Title: Check Mainsite that is still alive");
+        log("@Step 1: Navigate to mainsite");
+        log("Verify 1: Validate Mainsite exists");
+        landingPage.homePage.verifyLogoDisplay();
+    }
 }

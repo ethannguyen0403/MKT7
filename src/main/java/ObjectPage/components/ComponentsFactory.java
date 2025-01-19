@@ -10,6 +10,8 @@ public class ComponentsFactory {
         switch (appName){
             case "NOHU":
                 return new NohuPage();
+            case "9BET":
+                return new NohuPage();
             default:
                 return new VicClub2Page();
         }
